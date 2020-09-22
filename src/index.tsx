@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 //これでtypescriptの第一段階
+//多分二回目からはそんなことしなくてもうまく行く
 ReactDOM.render(
   <React.StrictMode>
     <App />
