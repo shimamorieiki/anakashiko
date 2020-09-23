@@ -14,7 +14,7 @@ model = models.Doc2Vec.load('aozora.model')
 # 分類用のzipファイルを開き中の文章を取得する
 
 
-def read_book(auther, book):
+def read_book(url, zipname):
     if not os.path.exists(zipname):
         req.urlretrieve(url, zipname)
 

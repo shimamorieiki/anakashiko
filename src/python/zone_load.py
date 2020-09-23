@@ -1,6 +1,6 @@
 import MeCab
 from gensim import models
-from gensim.models.doc2vec import TaggedDocument
+# from gensim.models.doc2vec import TaggedDocument  # インストールしたのに使ってないとか言われた
 import os
 import os.path
 import numpy as np
@@ -8,9 +8,7 @@ from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
 import pandas as pd
 from matplotlib.font_manager import FontProperties
-from mpl_toolkits.mplot3d.axes3d import Axes3D
-from gensim import models
-from gensim.models.doc2vec import TaggedDocument
+# from mpl_toolkits.mplot3d.axes3d import Axes3D
 
 # MeCabの初期化
 tagger = MeCab.Tagger()
@@ -43,10 +41,13 @@ def lylic_open(song):
     return result
 
 
-#　学習しなおすとなぜか正しいベクトルを示さなくなったので新しく調べるものは学習済みのベクトルを利用する
+# 学習しなおすとなぜか正しいベクトルを示さなくなったので
+# 新しく調べるものは学習済みのベクトルを利用する
+
 def infer_singer(singer):
     for song in os.listdir("C:/Users/aifor/Lyric/"+singer):
-        with open("C:/Users/aifor/Lyric/"+singer+"/"+song, 'r', encoding='utf_8') as inputf:
+        with open("C:/Users/aifor/Lyric/" + singer + "/" + song, 'r',
+                  encoding='utf_8') as inputf:
             intext = inputf.read()
             node = tagger.parseToNode(intext)
             result = []
@@ -93,7 +94,9 @@ def similar():
 #
 #         # vector_singer = model_singer.infer_vector(words)
 #         # print("---「"+song.replace('.txt','')+"」は誰の曲？---")
-#         # simsinger = model_singer.docvecs.most_similar([vector_singer],topn=10)
+#         # simsinger = model_singer.docvecs.most_similar(
+#                                                         [vector_singer],
+#                                                          topn=10)
 #         # print(simsinger[0])
 
 def zscore(x, axis=None):

@@ -1,4 +1,4 @@
-import zipfile
+# import zipfile
 import os.path
 import urllib.request as req
 import MeCab
@@ -26,8 +26,8 @@ list = [
 
 def book_list():
     for novelist in list:
-        auther = novelist["auther"]:
-            yield auther, book
+        auther = novelist["auther"]
+        yield auther, book
 
 # zipファイルを開いて中の文章を取得する
 

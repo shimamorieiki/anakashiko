@@ -10,7 +10,8 @@ tagger.parse("")
 
 
 def lylic_open(singer, song):
-    with open('C:/Users/aifor/Lyric/'+singer+'/'+song, 'r', encoding='utf_8') as inputf:
+    with open('C:/Users/aifor/Lyric/' + singer + '/' + song, 'r',
+              encoding='utf_8') as inputf:
         intext = inputf.read()
         node = tagger.parseToNode(intext)
         result = []
@@ -54,7 +55,9 @@ for singer in os.listdir("C:/Users/aifor/Lyric"):
             words = lylic_open(singer, song)
             # TaggedDocumentの作成
             document_song = TaggedDocument(
-                words, [singer+":" + song.replace('.txt', '').replace('_', ' ')])
+                words, [singer + ":" +
+                        song.replace('.txt', '').replace('_', ' ')]
+            )
             document_singer = TaggedDocument(words, [singer])
             documents_song.append(document_song)
             documents_singer.append(document_singer)

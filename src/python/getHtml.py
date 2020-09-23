@@ -1,6 +1,6 @@
 import requests
 import bs4
-import time
+# import time
 import os
 
 
@@ -10,7 +10,15 @@ import os
 #
 #     soup = bs4.BeautifulSoup(res.text,"html.parser")
 #
-#     with open("./Lyric/一青窈/"+soup.find("td", attrs={"class": "kasi1"}).text.replace(" ", "_").replace(".", "・").replace("*", "＊").replace("?", "？").replace('"', "”").replace('/', "／").replace('<', "＜").replace('>', "＞")+'.txt','w',encoding='utf_8') as f:
+#     with open("./Lyric/一青窈/"+soup.find("td", attrs={"class": "kasi1"}).text
+# .replace(" ", "_")
+# .replace(".", "・")
+# .replace("*", "＊")
+# .replace("?", "？")
+# .replace('"', "”")
+# .replace('/', "／")
+# .replace('<', "＜")
+# .replace('>', "＞")+'.txt','w',encoding='utf_8') as f:
 #         f.write(soup.find("td", attrs={"class": "kasi_honbun"}).text)
 
 # def getlink(root):
@@ -52,7 +60,18 @@ def getsinger(root):
         if url.find('/artist/') is not -1:
             name = link.text
             print("name:"+name)
-            if os.path.isdir("C:/Users/aifor/Lyric/"+name.replace(":", "：").replace("*", "＊").replace("?", "？").replace('"', "”").replace('/', "／").replace('<', "＜").replace('>', "＞").replace("|", "｜")):
+            if os.path.isdir(
+                "C:/Users/aifor/Lyric/" +
+                name
+                .replace(":", "：")
+                .replace("*", "＊")
+                .replace("?", "？")
+                .replace('"', "”")
+                .replace('/', "／")
+                .replace('<', "＜")
+                .replace('>', "＞")
+                .replace("|", "｜")
+            ):
                 pass
             else:
                 getsong("https://www.uta-net.com"+url, name)
@@ -65,12 +84,45 @@ def getlyric(url, singer):
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     title = soup.find("h2").text
     kashi = soup.find("div", attrs={"id": "kashi_area"}).text
-    path = "C:/Users/aifor/Lyric/"+singer.replace(":", "：").replace("*", "＊").replace("?", "？").replace(
-        '"', "”").replace('/', "／").replace('<', "＜").replace('>', "＞").replace("|", "｜")+"/"
+    path = ("C:/Users/aifor/Lyric/" +
+            singer
+            .replace(":", "：")
+            .replace("*", "＊")
+            .replace("?", "？")
+            .replace('"', "”")
+            .replace('/', "／")
+            .replace('<', "＜")
+            .replace('>', "＞")
+            .replace("|", "｜")
+            + "/")
     os.makedirs(path, exist_ok=True)
 
-    if os.path.exists(path+title.replace(":", "：").replace(" ", "_").replace(".", "・").replace("*", "＊").replace("?", "？").replace('"', "”").replace('/', "／").replace('<', "＜").replace('>', "＞")+'.txt'):
+    if os.path.exists(path +
+                      title
+                      .replace(":", "：")
+                      .replace(" ", "_")
+                      .replace(".", "・")
+                      .replace("*", "＊")
+                      .replace("?", "？")
+                      .replace('"', "”")
+                      .replace('/', "／")
+                      .replace('<', "＜")
+                      .replace('>', "＞") + '.txt'
+                      ):
         pass
     else:
-        with open(path+title.replace(":", "：").replace(" ", "_").replace(".", "・").replace("*", "＊").replace("?", "？").replace('"', "”").replace('/', "／").replace('<', "＜").replace('>', "＞")+'.txt', 'w', encoding='utf_8') as f:
+        with open(path +
+                  title
+                  .replace(":", "：")
+                  .replace(" ", "_")
+                  .replace(".", "・")
+                  .replace("*", "＊")
+                  .replace("?", "？")
+                  .replace('"', "”")
+                  .replace('/', "／")
+                  .replace('<', "＜")
+                  .replace('>', "＞") + '.txt',
+                  'w',
+                  encoding='utf_8'
+                  ) as f:
             f.write(kashi)

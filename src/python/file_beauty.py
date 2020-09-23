@@ -7,7 +7,8 @@ import os
 #
 #     # 文字列置換
 #     data_lines = data_lines.replace("<br>", "\n")
-#     data_lines = data_lines.replace('<td style="padding-left:30px;" class="noprint kasi_honbun">', "")
+#     data_lines = data_lines.replace('<td style="padding-left:30px;"
+# class="noprint kasi_honbun">', "")
 #     data_lines = data_lines.replace("<!-- 歌詞 end -->","")
 #     data_lines = data_lines.replace("</td>","")
 #

@@ -4,10 +4,10 @@ import os
 import os.path
 import numpy as np
 import re
-from wordcloud import WordCloud
-from matplotlib import pyplot as plt
-from sklearn.decomposition import PCA
-import pandas as pd
+# from wordcloud import WordCloud
+# from matplotlib import pyplot as plt
+# from sklearn.decomposition import PCA
+# import pandas as pd
 
 tagger = MeCab.Tagger()
 tagger.parse("")
@@ -25,7 +25,7 @@ def japanese_analyzer(str):
         # 品詞分類情報取得
         hinshi = node.feature.split(',')[0]
         if hinshi in ["名詞"]:
-            if len(node.surface) is 1 and not pc.fullmatch(node.surface):
+            if len(node.surface) == 1 and not pc.fullmatch(node.surface):
                 pass
             elif pa.fullmatch(node.surface):
                 pass
@@ -34,7 +34,8 @@ def japanese_analyzer(str):
             elif node.feature.split(',')[1] == "一般":
                 result.append(node.surface)
         elif hinshi in ["動詞", "形容詞"]:
-            if node.feature.split(',')[1] == "自立" and not ph.fullmatch(node.surface):
+            if (node.feature.split(',')[1] == "自立" and
+                    not ph.fullmatch(node.surface)):
                 result.append(node.feature.split(',')[6])
         node = node.next
     return result
@@ -43,7 +44,8 @@ def japanese_analyzer(str):
 def get_singer_feature_words(arg, num):
     source2_list = []
     for song in os.listdir("C:/Users/aifor/Lyric/"+arg):
-        with open("C:/Users/aifor/Lyric/"+arg+"/"+song, "r", encoding='utf_8') as f:
+        with open("C:/Users/aifor/Lyric/" + arg + "/" + song, "r",
+                  encoding='utf_8') as f:
             txt = f.read()
             source2_list.append(txt)
 
@@ -73,7 +75,8 @@ def isexist(arg):
 #         txt = f.read()
 #         source2_list.append(txt)
 # # japanese_analyzer(txt)
-# cv = CV(analyzer=japanese_analyzer,min_df=0.08, max_df=0.50,ngram_range=(1,3))
+# cv = CV(analyzer=japanese_analyzer,min_df=0.08,
+# max_df=0.50,ngram_range=(1,3))
 # matrix = cv.fit_transform(source2_list)
 # feature_array = np.array(cv.get_feature_names())
 # tfidf_sorting = np.argsort(matrix.toarray()).flatten()[::-1]
