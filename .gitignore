@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# モデルは大きすぎるのでgitのあれから外す
+.npy
