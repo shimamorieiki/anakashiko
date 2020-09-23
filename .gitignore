@@ -24,3 +24,4 @@ yarn-error.log*
 
 # モデルは大きすぎるのでgitのあれから外す
 .npy
+.model
