@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function LabelBottomNavigation() {
+export default function NumOfSongsNavigation() {
     const classes = useStyles();
     const [value, setValue] = React.useState('Search');
 
@@ -30,8 +30,8 @@ export default function LabelBottomNavigation() {
             <BottomNavigationAction value="Search" label="検索" icon={<SearchIcon />} />
             <BottomNavigationAction value="Favorites" label="お気に入り" icon={<FavoriteIcon />} />
             <BottomNavigationAction value="Recents" label="履歴" icon={<HistoryIcon />} />
-            <BottomNavigationAction value="Popular" label="人気" icon={<StarIcon />} />
-            <BottomNavigationAction value="Trendingup" label="急上昇" icon={<TrendingUpIcon />} />
+            {/* <BottomNavigationAction value="Popular" label="人気" icon={<StarIcon />} />
+            <BottomNavigationAction value="Trendingup" label="急上昇" icon={<TrendingUpIcon />} /> */}
         </BottomNavigation>
     );
 }

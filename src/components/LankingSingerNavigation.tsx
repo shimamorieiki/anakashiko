@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function LabelBottomNavigation() {
+export default function LankingSingerNavigation() {
     const classes = useStyles();
     const [value, setValue] = React.useState('Search');
 
@@ -26,12 +26,11 @@ export default function LabelBottomNavigation() {
     };
 
     return (
+        // これはもしかして続きを読むでリロードさせたほうが賢いのでは？
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction value="Search" label="検索" icon={<SearchIcon />} />
-            <BottomNavigationAction value="Favorites" label="お気に入り" icon={<FavoriteIcon />} />
-            <BottomNavigationAction value="Recents" label="履歴" icon={<HistoryIcon />} />
-            <BottomNavigationAction value="Popular" label="人気" icon={<StarIcon />} />
-            <BottomNavigationAction value="Trendingup" label="急上昇" icon={<TrendingUpIcon />} />
+            <BottomNavigationAction value="Search" label="上位20曲" icon={<SearchIcon />} />
+            <BottomNavigationAction value="Favorites" label="上位50曲" icon={<FavoriteIcon />} />
+            <BottomNavigationAction value="Recents" label="上位100曲" icon={<HistoryIcon />} />
         </BottomNavigation>
     );
 }

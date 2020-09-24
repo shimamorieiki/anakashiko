@@ -8,6 +8,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
 
 
 const SimilaritySinger = () => {
@@ -22,19 +23,22 @@ const SimilaritySinger = () => {
                         <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
                         <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
                         <Grid item xs={1}>
-                            <Fab size="small" aria-label="add">
+                            <IconButton size="small" aria-label="add" style={{ backgroundColor: "#ffaacc" }}>
                                 <AddIcon />
-                            </Fab>
+                            </IconButton>
+                            {/* <Fab size="small" aria-label="add">
+                                <AddIcon />
+                            </Fab> */}
                         </Grid>
                         <Grid item xs={1}>
-                            <Fab size="small" aria-label="remove">
+                            <IconButton size="small" aria-label="remove">
                                 <RemoveIcon />
-                            </Fab>
+                            </IconButton>
                         </Grid>
                         <Grid item xs={1}>
-                            <Fab size="small" aria-label="search">
+                            <IconButton size="small" aria-label="search">
                                 <SearchIcon />
-                            </Fab>
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Paper>

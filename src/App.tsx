@@ -29,6 +29,12 @@ import SuggestSinger from './components/SuggestSinger'
 import MicIcon from '@material-ui/icons/Mic';
 import AppBar from '@material-ui/core/AppBar'
 import SimilaritySinger from './components/SimilaritySinger'
+import SingerSimilarityScatterChart from './components/SingerSimilarityScatterChart';
+import SingerSimilarityWordcloud from './components/SingerSimilarityWordcloud';
+import SingerProfile from './components/SingerProfile';
+import SingerAutoCompletion from './components/SingerAutoCompletion';
+import IconButton from '@material-ui/core/IconButton';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 // type Props = {
 //   onChange: (event: React.MouseEvent<HTMLInputElement>) => void
 // }
@@ -55,49 +61,7 @@ function App() {
   //   name: "",
   //   address: "",
   // };
-  const data = [
-    { x: 100, y: 200, name: "a" },
-    { x: 120, y: 100, name: "b" },
-    { x: 170, y: 300, name: "c" },
-    { x: 140, y: 250, name: "d" },
-    { x: 150, y: 400, name: "e" },
-    { x: 110, y: 280, name: "f" },
-  ];
 
-  const words = [
-    {
-      text: 'told',
-      value: 64,
-    },
-    {
-      text: 'mistake',
-      value: 11,
-    },
-    {
-      text: 'thought',
-      value: 16,
-    },
-    {
-      text: 'bad',
-      value: 17,
-    },
-    {
-      text: 'told',
-      value: 64,
-    },
-    {
-      text: 'mistake',
-      value: 11,
-    },
-    {
-      text: 'thought',
-      value: 100,
-    },
-    {
-      text: 'bad',
-      value: 21,
-    },
-  ]
 
 
   // const addresembleSingersValue = (singer: string) => {
@@ -110,6 +74,7 @@ function App() {
   // };
 
   const handleInputValue = (value: string) => {
+    setSingerValue('');
     setInputValue(value);
   }
 
@@ -122,164 +87,100 @@ function App() {
 
   return (
     <div className="App">
-      {/* <SearchAppBar /> */}
-      {/* <Container
-        // maxWidth="lg"
+      <SearchAppBar />
+      <Container
+        maxWidth="lg"
         style={{
           backgroundColor: '#cfe8fc'
         }}
-      > */}
-      {/* <PersistentDrawerLeft /> */}
-      {/* <AppBar><Typography variant="h3">ANAKASHIKO</Typography></AppBar> */}
-      <Grid container>
-        <Grid item lg={12}>
-          <SearchAppBar />
-          {/* <LabelBottomNavigation /> */}
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div">
-            {/* <Typography variant="h4">検索欄</Typography> */}
-            <FormControl>
-              <InputLabel htmlFor="input-with-icon-adornment">
-                歌手名を入力
+      >
+        {/* <PersistentDrawerLeft /> */}
+        {/* <AppBar><Typography variant="h3">ANAKASHIKO</Typography></AppBar> */}
+        <Grid container>
+          <Grid item lg={12}>
+            <LabelBottomNavigation />
+          </Grid>
+
+          <Grid item xs={12} lg={12}>
+            <Box component="div">
+              {/* <Typography variant="h4">検索欄</Typography> */}
+              <FormControl>
+                <InputLabel htmlFor="input-with-icon-adornment">
+                  歌手名を入力
               </InputLabel>
-              <Input
-                id="input-with-icon-adornment"
-                value={inputValue}
-                onChange={
-                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                    handleInputValue(event.target.value)
+                <Input
+                  id="input-with-icon-adornment"
+                  value={inputValue}
+                  placeholder="例:あいみょん"
+                  onChange={
+                    (event: React.ChangeEvent<HTMLInputElement>) => {
+                      handleInputValue(event.target.value)
+                    }
                   }
-                }
-                startAdornment={
-                  <InputAdornment position="start">
-                    <MicIcon />
-                  </InputAdornment>
-                }
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <MicIcon />
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+              <SingerAutoCompletion
+                inputValue={inputValue}
+                handleAddSinger={handleAddSinger}
               />
-            </FormControl>
-            {/* ただ単純に検索欄というよりは入力が近いときに補完を入れるようにしたい
-              複数歌手を入れるとかやるなら結構入れたい。
-              できれば引き算(こいつっぽくないほうが嬉しいとか)も
-              精度の関係上10曲以上出してる歌手のみ検索できます */}
-            {/* ここらへんの条件分岐を完全なものにしたい */}
-            {(() => {
-              if (inputValue === "a") {
-                const singers = ["鬼束", "aiko", "ZONE", "ZARD", "鬼束", "aiko", "ZONE", "ZARD"]
-                const listItems = singers.map((singer: string) =>
-                  <Grid item xs={12}>
+            </Box>
+          </Grid>
+          {(() => {
+            if (singerValue !== "") {
+              return (
+                <Box component="div">
+                  <Grid item xs={12} lg={12}>
+                    <SingerProfile name={singerValue} />
+                  </Grid>
+                  <Grid item xs={12} lg={12}>
                     <Box component="div" m={1}>
-                      <Paper>
-                        <Grid container>
-                          <Grid item xs={8}><Typography variant="h6">{singer}</Typography></Grid>
-                          <Grid item xs={4}>
-                            <Fab key={singer} color="primary" aria-label="add" onClick={
-                              () => {
-                                handleAddSinger(singer)
-                              }
-                            }>
-                              <AddIcon />
-                            </Fab>
-                          </Grid>
-                          {/* <Grid item xs={4}>
-                              <Fab key="鬼束ちひろ" color="secondary" aria-label="edit" onClick={handleOnClick}>
-                                <RemoveIcon />
-                              </Fab>
-                            </Grid> */}
-                        </Grid>
-                      </Paper>
+                      <Typography variant="h4">特徴的な単語</Typography>
+                      <p>結構ストップワードの選別がきつかった記憶がある</p>
                     </Box>
                   </Grid>
-                );
-                return (
-                  <Grid container>
-                    {listItems}
+                  <Grid item xs={12} lg={12}>
+                    <Typography variant="h4">ワードクラウド</Typography>
+                    <IconButton aria-label="delete">
+                      <ReplayIcon color="secondary" />
+                    </IconButton>
+                    <SingerSimilarityWordcloud />
                   </Grid>
-                )
-              }
-            })()}
-
-          </Box>
+                  <Grid item xs={12} lg={12}>
+                    <Typography variant="h4">歌手別類似度</Typography>
+                    <Typography variant="h6">{singerValue}と似ている歌手</Typography>
+                    <IconButton>
+                      <AnnouncementIcon color="secondary" />
+                      {/* あれで「+」だったら検索に追加
+                      「-」だったら似てない方に追加　
+                      「虫眼鏡」だったらそれを新たな候補として検索 */}
+                    </IconButton>
+                    <SimilaritySinger />
+                    <SingerSimilarityScatterChart />
+                  </Grid>
+                </Box>
+              )
+            } else {
+              return (
+                <Grid item xs={12} lg={12}>
+                  <Box component="div" m={1}>
+                    <SuggestSinger suggestType="人気" />
+                    <SuggestSinger suggestType="お気に入り" />
+                    <SuggestSinger suggestType="急上昇" />
+                    <SuggestSinger suggestType="履歴" />
+                  </Box>
+                </Grid>
+              );
+            }
+          })()}
+          <TweetShare />
         </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div">
-
-            <Typography variant="h3">{singerValue}</Typography>
-            <Typography variant="h4">プロフィール</Typography>
-            {(() => {
-              if (singerValue === "ZONE") {
-                return (
-                  <Typography variant="h6">
-                    <a href="https://ja.wikipedia.org/wiki/ZONE_(%E3%83%90%E3%83%B3%E3%83%89)">wikipedia</a>
-                  </Typography>
-                )
-              } else if (singerValue === "鬼束ちひろ") {
-                return (
-                  <Typography variant="h6">
-                    <a href="https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%9D%9F%E3%81%A1%E3%81%B2%E3%82%8D">wikipedia</a>
-                  </Typography>
-                )
-              }
-            })()}
-          </Box>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div" m={1}>
-            <Typography variant="h4">特徴的な単語</Typography>
-
-            結構ストップワードの選別がきつかった記憶がある
-          </Box>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div" m={1}>
-            <Typography variant="h4">ワードクラウド</Typography>
-            <Fab size="small" aria-label="remove">
-              <ReplayIcon />
-            </Fab>
-            <ReactWordcloud words={words} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div" m={1}>
-            <Typography variant="h4">歌手別類似度</Typography>
-            {(() => {
-              if (singerValue !== "") {
-                return (
-                  <Typography variant="h6">{singerValue}と似ている歌手</Typography>
-                )
-              }
-            })()}
-            <SimilaritySinger />
-
-            <ScatterChart
-              width={300}
-              height={300}
-              margin={{
-                top: 20, right: 20, bottom: 20, left: 20,
-              }}
-            >
-              <CartesianGrid />
-              <XAxis type="number" dataKey="x" name="stature" />
-              <YAxis type="number" dataKey="y" name="weight" />
-              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-              <Scatter name="類似歌手" data={data} fill="#fffaaa">
-                <LabelList dataKey="name" />
-              </Scatter>
-            </ScatterChart>
-          </Box>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Box component="div" m={1}>
-            <SuggestSinger suggestType="人気" />
-            <SuggestSinger suggestType="お気に入り" />
-            <SuggestSinger suggestType="急上昇" />
-            <SuggestSinger suggestType="履歴" />
-          </Box>
-        </Grid>
-        <TweetShare />
-      </Grid>
-      {/* </Container> */}
-    </div>
+      </Container>
+    </div >
   );
 }
 

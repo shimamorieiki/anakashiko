@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import IconButton from '@material-ui/core/IconButton';
 
 // interface Props {
 //     singers: {
@@ -33,9 +34,9 @@ const SuggestSinger: React.FC<Props> = ({ suggestType }) => {
                         <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
                         <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
                         <Grid item xs={1}>
-                            <Fab size="small" aria-label="search">
+                            <IconButton size="small" aria-label="search">
                                 <ArrowRightIcon />
-                            </Fab>
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Paper>
