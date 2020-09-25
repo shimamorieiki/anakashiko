@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -11,40 +11,62 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
 
+interface Props {
+    singers: {
+        id: number;
+        name: string;
+        similarity: number;
+        first: number;
+        second: number;
+    }[]
+}
 
-const SimilaritySinger = () => {
+const SimilaritySinger: React.FC<Props> = ({ singers }) => {
     //多分これだと発火しない気がしてきた
     //一番自然なのは親で取ってきてそれを子がもらうパターン
-    const sampleApiURL = 'https://jsondata.okiba.me/v1/json/6zYKL200924074420';
-    var data = 'ちょっとまって'
-    axios
-        .get(sampleApiURL)
-        .then((results) => {
-            // 以下のGoogle API のレスポンスの例を元に欲しいデータを取得
-            data = results.data;
-            // const result = data.results[0];
-            // const location = result.geometry.location;
-            // this.setState({
-            //     address: result.formatted_address,
-            //     lat: location.lat,
-            //     lng: location.lng,
-            // });
-        },
-        )
-        .catch(() => {
-            data = '通信に失敗しました。'
-        });
-    const singers = ["鬼束", "aiko", "ZONE", "ZARD", "鬼束", "aiko", "ZONE", "ZARD"]
-    const listItems = singers.map((singer: string) =>
-        <Grid item xs={12}>
+    // const sampleApiURL = 'https://jsondata.okiba.me/v1/json/6zYKL200924074420';
+    // const [state, setState] = useState([
+    //     { id: 1, name: "鬼塚ちひろ", similarity: 0.99, first: 30, second: 30 },
+    //     { id: 2, name: "ZONE", similarity: 0.99, first: 21, second: 20 }
+    // ])
+    // // const [state, setState] = useState()
+    // const [num, setNum] = useState(5)
+    // var singersList = state;
+
+
+    // useEffect(() => {
+    //     axios
+    //         .get(sampleApiURL)
+    //         .then((results) => {
+    //             for (let i = 0; i < num; i++) {
+    //                 singersList.push({
+    //                     id: results.data[i].id,
+    //                     name: results.data[i].name,
+    //                     similarity: results.data[i].similarity,
+    //                     first: results.data[i].first,
+    //                     second: results.data[i].second
+    //                 });
+    //                 // console.log(results.data[i].id);
+    //             }
+    //             setState(singersList)
+    //             console.log(state);
+
+    //         }).catch(() => {
+    //             console.log("失敗した");
+
+    //         });
+    // })
+
+    var listItems = singers.map((singer) =>
+        <Grid item xs={12} key={singer.name}>
             <Box component="div" m={1}>
                 <Paper>
                     <Grid container>
-                        <Grid item xs={1}><Typography variant="h6">1</Typography></Grid>
-                        <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
-                        <Grid item xs={4}><Typography variant="h6">{singer}</Typography></Grid>
+                        <Grid item xs={1}><Typography variant="h6">{singer.id}</Typography></Grid>
+                        <Grid item xs={4}><Typography variant="h6">{singer.name}</Typography></Grid>
+                        <Grid item xs={4}><Typography variant="h6">{singer.similarity}</Typography></Grid>
                         <Grid item xs={1}>
-                            <IconButton size="small" aria-label="add" style={{ backgroundColor: "#ffaacc" }} key={singer}>
+                            <IconButton size="small" aria-label="add" style={{ backgroundColor: "#ffaacc" }} key={singer.name}>
                                 <AddIcon />
                             </IconButton>
                             {/* <Fab size="small" aria-label="add">
@@ -70,8 +92,7 @@ const SimilaritySinger = () => {
 
     return (
         <Grid container>
-            {/* {listItems} */}
-            <p>{data}</p>
+            {listItems}
         </Grid>
     );
 }

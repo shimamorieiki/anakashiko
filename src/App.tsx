@@ -35,6 +35,7 @@ import SingerProfile from './components/SingerProfile';
 import SingerAutoCompletion from './components/SingerAutoCompletion';
 import IconButton from '@material-ui/core/IconButton';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
+import axios from 'axios';
 // type Props = {
 //   onChange: (event: React.MouseEvent<HTMLInputElement>) => void
 // }
@@ -46,6 +47,13 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 //     }
 //   })()
 // }
+interface StateProperties {
+  id: number;
+  name: string;
+  similarity: number;
+  first: number;
+  second: number;
+}
 
 type resembleSingersValuesProps = {
   resembleSingersValues: {
@@ -56,11 +64,9 @@ function App() {
 
   const [inputValue, setInputValue] = useState('');
   const [singerValue, setSingerValue] = useState('')
-  // どうやら配列をhooksで持つのは大分ヤバそう
-  // const [state, setState] = useState<string[]>([{
-  //   name: "",
-  //   address: "",
-  // };
+  const [singersInfoValue, setSingersInfoValue] = useState<StateProperties[]>([]);
+  const [num, setNum] = useState(5)
+
 
 
 
@@ -75,12 +81,34 @@ function App() {
 
   const handleInputValue = (value: string) => {
     setSingerValue('');
+    setSingersInfoValue([]);
     setInputValue(value);
   }
 
   const handleAddSinger = (value: string) => {
-    setInputValue('');
-    setSingerValue(value);
+    const sampleApiURL = 'https://jsondata.okiba.me/v1/json/6zYKL200924074420';
+    var singersList = singersInfoValue;
+    axios
+      .get(sampleApiURL)
+      .then((results) => {
+        for (let i = 0; i < num; i++) {
+          singersList.push({
+            id: results.data[i].id,
+            name: results.data[i].name,
+            similarity: results.data[i].similarity,
+            first: results.data[i].first,
+            second: results.data[i].second
+          });
+          // console.log(results.data[i].id);
+        }
+        setSingersInfoValue(singersList)
+        setInputValue('');
+        setSingerValue(value);
+
+      }).catch(() => {
+        console.log("失敗した");
+
+      });
   }
 
 
@@ -97,9 +125,9 @@ function App() {
         {/* <PersistentDrawerLeft /> */}
         {/* <AppBar><Typography variant="h3">ANAKASHIKO</Typography></AppBar> */}
         <Grid container>
-          <Grid item lg={12}>
+          {/* <Grid item lg={12}>
             <LabelBottomNavigation />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} lg={12}>
             <Box component="div">
@@ -159,8 +187,8 @@ function App() {
                       「-」だったら似てない方に追加　
                       「虫眼鏡」だったらそれを新たな候補として検索 */}
                     </IconButton>
-                    <SimilaritySinger />
-                    <SingerSimilarityScatterChart />
+                    <SimilaritySinger singers={singersInfoValue} />
+                    <SingerSimilarityScatterChart singers={singersInfoValue} />
                   </Grid>
                 </Box>
               )

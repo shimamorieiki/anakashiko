@@ -51,9 +51,9 @@ const SingerAutoCompletion: React.FC<Props> = ({ inputValue, handleAddSinger }) 
             {(() => {
                 if (inputValue === "a") {
                     //ここのsingersを非同期処理で持ってくればいい？
-                    const singers = ["鬼束", "aiko", "ZONE", "ZARD", "鬼束", "aiko", "ZONE", "ZARD"]
+                    const singers = ["鬼束", "aiko", "ZONE", "ZARD", "嵐", "SMAP", "ゆず", "高橋優"]
                     const listItems = singers.map((singer: string) =>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={singer}>
                             <Box component="div" m={1}>
                                 <Paper>
                                     <Grid container>

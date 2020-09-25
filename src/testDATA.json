@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "鬼塚ちひろ",
+        "similarity": 0.99,
+        "first": 30,
+        "second": 30
+    },
+    {
+        "id": 2,
+        "name": "ZONE",
+        "similarity": 0.99,
+        "first": 21,
+        "second": 20
+    },
+    {
+        "id": 3,
+        "name": "ZARD",
+        "similarity": 0.99,
+        "first": 24,
+        "second": 40
+    },
+    {
+        "id": 4,
+        "name": "B'z",
+        "similarity": 0.99,
+        "first": 16,
+        "second": 40
+    },
+    {
+        "id": 5,
+        "name": "椎名林檎",
+        "similarity": 0.99,
+        "first": 20,
+        "second": 25
+    },
+    {
+        "id": 6,
+        "name": "中村中",
+        "similarity": 0.99,
+        "first": 41,
+        "second": 14
+    }
+]
