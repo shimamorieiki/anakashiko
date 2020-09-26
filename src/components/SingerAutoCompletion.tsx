@@ -34,12 +34,16 @@ import IconButton from '@material-ui/core/IconButton';
 type Props = {
     inputValue: string;
     handleAddSinger: any;
+    autoCompletionValue: {
+        id: number;
+        name: string;
+    }[];
 }
 
 
 
 
-const SingerAutoCompletion: React.FC<Props> = ({ inputValue, handleAddSinger }) => {
+const SingerAutoCompletion: React.FC<Props> = ({ inputValue, handleAddSinger, autoCompletionValue }) => {
     return (
 
         <Box component="div">
@@ -51,17 +55,17 @@ const SingerAutoCompletion: React.FC<Props> = ({ inputValue, handleAddSinger }) 
             {(() => {
                 if (inputValue === "a") {
                     //ここのsingersを非同期処理で持ってくればいい？
-                    const singers = ["鬼束", "aiko", "ZONE", "ZARD", "嵐", "SMAP", "ゆず", "高橋優"]
-                    const listItems = singers.map((singer: string) =>
-                        <Grid item xs={12} key={singer}>
+                    // const singers = ["鬼束", "aiko", "ZONE", "ZARD", "嵐", "SMAP", "ゆず", "高橋優"]
+                    const listItems = autoCompletionValue.map((singer) =>
+                        <Grid item xs={12} key={singer.name}>
                             <Box component="div" m={1}>
                                 <Paper>
                                     <Grid container>
-                                        <Grid item xs={8}><Typography variant="h6">{singer}</Typography></Grid>
+                                        <Grid item xs={8}><Typography variant="h6">{singer.name}</Typography></Grid>
                                         <Grid item xs={4}>
-                                            <IconButton key={singer} color="primary" aria-label="add" onClick={
+                                            <IconButton key={singer.name} color="primary" aria-label="add" onClick={
                                                 () => {
-                                                    handleAddSinger(singer)
+                                                    handleAddSinger(singer.name)
                                                 }
                                             }>
                                                 <AddIcon />

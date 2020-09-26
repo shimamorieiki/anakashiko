@@ -14,17 +14,27 @@
         "alikeSingers": [
             {
                 "id": 1,
-                "name": "鬼塚ちひろ",
-                "similarity": 0.99,
-                "first": 30,
-                "second": 30
+                "name": "鬼塚ちひろ"
+            },
+            {
+                "id": 2,
+                "name": "中村中"
+            },
+            {
+                "id": 3,
+                "name": "中村中"
+            },
+            {
+                "id": 4,
+                "name": "中村中"
+            },
+            {
+                "id": 5,
+                "name": "中村中"
             },
             {
                 "id": 6,
-                "name": "中村中",
-                "similarity": 0.99,
-                "first": 41,
-                "second": 14
+                "name": "中村中"
             }
         ]
     }

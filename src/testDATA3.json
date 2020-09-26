@@ -1,30 +1,38 @@
 [
     {
         "type": "autoCompletion",
-        "num": "20"
+        "num": "6"
     },
     {
         "target": {
-            "name": "あい",
-            "first": 30,
-            "second": 30
+            "name": "あい"
         }
     },
     {
         "alikeSingers": [
             {
                 "id": 1,
-                "name": "鬼塚ちひろ",
-                "similarity": 0.99,
-                "first": 30,
-                "second": 30
+                "name": "鬼塚ちひろ"
+            },
+            {
+                "id": 2,
+                "name": "秦基博"
+            },
+            {
+                "id": 3,
+                "name": "CHEMISTORY"
+            },
+            {
+                "id": 4,
+                "name": "河村隆一"
+            },
+            {
+                "id": 5,
+                "name": "中村中"
             },
             {
                 "id": 6,
-                "name": "中村中",
-                "similarity": 0.99,
-                "first": 41,
-                "second": 14
+                "name": "ZONE"
             }
         ]
     }

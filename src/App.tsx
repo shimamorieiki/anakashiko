@@ -47,7 +47,7 @@ import axios from 'axios';
 //     }
 //   })()
 // }
-interface StateProperties {
+interface alikeSingersProperties {
   id: number;
   name: string;
   similarity: number;
@@ -55,16 +55,22 @@ interface StateProperties {
   second: number;
 }
 
-type resembleSingersValuesProps = {
-  resembleSingersValues: {
-    value: string,
-  }[]
+interface autoCompletionProperties {
+  id: number;
+  name: string;
 }
+
+// type resembleSingersValuesProps = {
+//   resembleSingersValues: {
+//     value: string,
+//   }[]
+// }
 function App() {
 
   const [inputValue, setInputValue] = useState('');
   const [singerValue, setSingerValue] = useState('')
-  const [singersInfoValue, setSingersInfoValue] = useState<StateProperties[]>([]);
+  const [singersInfoValue, setSingersInfoValue] = useState<alikeSingersProperties[]>([]);
+  const [autoCompletionValue, setAutoCompletionValue] = useState<autoCompletionProperties[]>([]);
   const [num, setNum] = useState(5)
 
 
@@ -80,9 +86,35 @@ function App() {
   // };
 
   const handleInputValue = (value: string) => {
-    setSingerValue('');
-    setSingersInfoValue([]);
-    setInputValue(value);
+    const sampleApiURL = 'https://jsondata.okiba.me/v1/json/9rmZU200926060103';
+    var autoCompletionList = autoCompletionValue;
+    axios
+      .get(sampleApiURL)
+      .then((results) => {
+        for (let i = 0; i < results.data[0].num; i++) {
+          autoCompletionList.push({
+            id: results.data[2].alikeSingers[i].id,
+            name: results.data[2].alikeSingers[i].name,
+          });
+        }
+        if (singerValue === "") {
+          setSingerValue('');
+        }
+
+        if (singersInfoValue.length === 0) {
+          setSingersInfoValue([]);
+        }
+
+        setInputValue(value);
+        setAutoCompletionValue(autoCompletionList)
+        autoCompletionList = [];
+
+
+      }).catch(() => {
+        console.log("失敗した");
+
+      });
+
   }
 
   const handleAddSinger = (value: string) => {
@@ -101,9 +133,18 @@ function App() {
           });
           // console.log(results.data[i].id);
         }
+        if (inputValue === "") {
+          setInputValue('');
+        }
+
+        if (autoCompletionValue.length === 0) {
+          setAutoCompletionValue([])
+
+        }
+
         setSingersInfoValue(singersList)
-        setInputValue('');
         setSingerValue(value);
+        singersList = [];
 
       }).catch(() => {
         console.log("失敗した");
@@ -157,6 +198,7 @@ function App() {
               </FormControl>
               <SingerAutoCompletion
                 inputValue={inputValue}
+                autoCompletionValue={autoCompletionValue}
                 handleAddSinger={handleAddSinger}
               />
             </Box>
