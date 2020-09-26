@@ -32,7 +32,6 @@ import IconButton from '@material-ui/core/IconButton';
 // }
 
 type Props = {
-    inputValue: string;
     handleAddSinger: any;
     autoCompletionValue: {
         id: number;
@@ -43,59 +42,45 @@ type Props = {
 
 
 
-const SingerAutoCompletion: React.FC<Props> = ({ inputValue, handleAddSinger, autoCompletionValue }) => {
+const SingerAutoCompletion: React.FC<Props> = ({ handleAddSinger, autoCompletionValue }) => {
+    const listItems = autoCompletionValue.map((singer) =>
+        <Grid item xs={12} key={singer.name}>
+            <Box component="div" m={1}>
+                <Paper>
+                    <Grid container>
+                        <Grid item xs={8}><Typography variant="h6">{singer.name}</Typography></Grid>
+                        <Grid item xs={4}>
+                            <IconButton key={singer.name} color="primary" aria-label="add" onClick={
+                                () => {
+                                    handleAddSinger(singer.name)
+                                }
+                            }>
+                                <AddIcon />
+                            </IconButton>
+                            {/* <Fab key={singer} color="primary" aria-label="add" onClick={
+                                            () => {
+                                                handleAddSinger(singer)
+                                            }
+                                        }>
+                                            <AddIcon />
+                                        </Fab> */}
+                        </Grid>
+                        {/* <Grid item xs={4}>
+                          <Fab key="鬼束ちひろ" color="secondary" aria-label="edit" onClick={handleOnClick}>
+                            <RemoveIcon />
+                          </Fab>
+                        </Grid> */}
+                    </Grid>
+                </Paper>
+            </Box>
+        </Grid>
+    );
+
     return (
-
         <Box component="div">
-            {/* ただ単純に検索欄というよりは入力が近いときに補完を入れるようにしたい
-              複数歌手を入れるとかやるなら結構入れたい。
-              できれば引き算(こいつっぽくないほうが嬉しいとか)も
-              精度の関係上10曲以上出してる歌手のみ検索できます */}
-            {/* ここらへんの条件分岐を完全なものにしたい */}
-            {(() => {
-                if (inputValue === "a") {
-                    //ここのsingersを非同期処理で持ってくればいい？
-                    // const singers = ["鬼束", "aiko", "ZONE", "ZARD", "嵐", "SMAP", "ゆず", "高橋優"]
-                    const listItems = autoCompletionValue.map((singer) =>
-                        <Grid item xs={12} key={singer.name}>
-                            <Box component="div" m={1}>
-                                <Paper>
-                                    <Grid container>
-                                        <Grid item xs={8}><Typography variant="h6">{singer.name}</Typography></Grid>
-                                        <Grid item xs={4}>
-                                            <IconButton key={singer.name} color="primary" aria-label="add" onClick={
-                                                () => {
-                                                    handleAddSinger(singer.name)
-                                                }
-                                            }>
-                                                <AddIcon />
-                                            </IconButton>
-                                            {/* <Fab key={singer} color="primary" aria-label="add" onClick={
-                                                () => {
-                                                    handleAddSinger(singer)
-                                                }
-                                            }>
-                                                <AddIcon />
-                                            </Fab> */}
-                                        </Grid>
-                                        {/* <Grid item xs={4}>
-                              <Fab key="鬼束ちひろ" color="secondary" aria-label="edit" onClick={handleOnClick}>
-                                <RemoveIcon />
-                              </Fab>
-                            </Grid> */}
-                                    </Grid>
-                                </Paper>
-                            </Box>
-                        </Grid>
-                    );
-                    return (
-                        <Grid container>
-                            {listItems}
-                        </Grid>
-                    )
-                }
-            })()}
-
+            <Grid container>
+                {listItems}
+            </Grid>
         </Box>
     );
 

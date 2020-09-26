@@ -67,7 +67,7 @@ interface autoCompletionProperties {
 // }
 function App() {
 
-  const [inputValue, setInputValue] = useState('');
+  // const [inputValue, setInputValue] = useState('');
   const [singerValue, setSingerValue] = useState('')
   const [singersInfoValue, setSingersInfoValue] = useState<alikeSingersProperties[]>([]);
   const [autoCompletionValue, setAutoCompletionValue] = useState<autoCompletionProperties[]>([]);
@@ -87,7 +87,7 @@ function App() {
 
   const handleInputValue = (value: string) => {
     const sampleApiURL = 'https://jsondata.okiba.me/v1/json/9rmZU200926060103';
-    var autoCompletionList = autoCompletionValue;
+    var autoCompletionList: any = [];
     axios
       .get(sampleApiURL)
       .then((results) => {
@@ -97,15 +97,14 @@ function App() {
             name: results.data[2].alikeSingers[i].name,
           });
         }
-        if (singerValue === "") {
+        if (singerValue !== "") {
           setSingerValue('');
         }
 
-        if (singersInfoValue.length === 0) {
+        if (singersInfoValue.length !== 0) {
           setSingersInfoValue([]);
         }
 
-        setInputValue(value);
         setAutoCompletionValue(autoCompletionList)
         autoCompletionList = [];
 
@@ -119,7 +118,7 @@ function App() {
 
   const handleAddSinger = (value: string) => {
     const sampleApiURL = 'https://jsondata.okiba.me/v1/json/6zYKL200924074420';
-    var singersList = singersInfoValue;
+    var singersList: any = [];
     axios
       .get(sampleApiURL)
       .then((results) => {
@@ -133,18 +132,17 @@ function App() {
           });
           // console.log(results.data[i].id);
         }
-        if (inputValue === "") {
-          setInputValue('');
-        }
 
-        if (autoCompletionValue.length === 0) {
+        // if (inputValue === "") {
+        //   setInputValue('');
+        // }
+
+        if (autoCompletionValue.length !== 0) {
           setAutoCompletionValue([])
-
         }
 
         setSingersInfoValue(singersList)
         setSingerValue(value);
-        singersList = [];
 
       }).catch(() => {
         console.log("失敗した");
@@ -182,7 +180,7 @@ function App() {
                 </InputLabel>
                 <Input
                   id="input-with-icon-adornment"
-                  value={inputValue}
+                  // value={inputValue}
                   placeholder="例:あいみょん"
                   onChange={
                     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,7 +195,6 @@ function App() {
                 />
               </FormControl>
               <SingerAutoCompletion
-                inputValue={inputValue}
                 autoCompletionValue={autoCompletionValue}
                 handleAddSinger={handleAddSinger}
               />
