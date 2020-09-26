@@ -10,6 +10,9 @@ import HistoryIcon from '@material-ui/icons/History';
 import StarIcon from '@material-ui/icons/Star';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import SearchIcon from '@material-ui/icons/Search';
+import SuggestSinger from './SuggestSinger'
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
     root: {
@@ -19,19 +22,33 @@ const useStyles = makeStyles({
 
 export default function LabelBottomNavigation() {
     const classes = useStyles();
-    const [value, setValue] = React.useState('Search');
+    const [value, setValue] = React.useState('Favorites');
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setValue(newValue);
     };
 
     return (
-        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction value="Search" label="検索" icon={<SearchIcon />} />
-            <BottomNavigationAction value="Favorites" label="お気に入り" icon={<FavoriteIcon />} />
-            <BottomNavigationAction value="Recents" label="履歴" icon={<HistoryIcon />} />
-            <BottomNavigationAction value="Popular" label="人気" icon={<StarIcon />} />
-            <BottomNavigationAction value="Trendingup" label="急上昇" icon={<TrendingUpIcon />} />
-        </BottomNavigation>
+        <Box component="div">
+            <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+                <BottomNavigationAction value="Favorites" label="お気に入り" icon={<FavoriteIcon />} />
+                <BottomNavigationAction value="Recents" label="履歴" icon={<HistoryIcon />} />
+                <BottomNavigationAction value="Popular" label="人気" icon={<StarIcon />} />
+                <BottomNavigationAction value="Trendingup" label="急上昇" icon={<TrendingUpIcon />} />
+            </BottomNavigation>
+            {
+                (() => {
+                    if (value === "Popular") {
+                        return <SuggestSinger suggestType="人気" />
+                    } else if (value === "Favorites") {
+                        return <SuggestSinger suggestType="お気に入り" />
+                    } else if (value === "Recents") {
+                        return <SuggestSinger suggestType="履歴" />
+                    } else if (value === "Trendingup") {
+                        return <SuggestSinger suggestType="急上昇" />
+                    }
+                })()
+            }
+        </Box>
     );
 }

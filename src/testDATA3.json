@@ -1,0 +1,31 @@
+[
+    {
+        "type": "autoCompletion",
+        "num": "20"
+    },
+    {
+        "target": {
+            "name": "あい",
+            "first": 30,
+            "second": 30
+        }
+    },
+    {
+        "alikeSingers": [
+            {
+                "id": 1,
+                "name": "鬼塚ちひろ",
+                "similarity": 0.99,
+                "first": 30,
+                "second": 30
+            },
+            {
+                "id": 6,
+                "name": "中村中",
+                "similarity": 0.99,
+                "first": 41,
+                "second": 14
+            }
+        ]
+    }
+]

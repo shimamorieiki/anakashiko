@@ -135,7 +135,10 @@ function App() {
               <FormControl>
                 <InputLabel htmlFor="input-with-icon-adornment">
                   歌手名を入力
-              </InputLabel>
+                   {/* サジェストするのは別にいいんだけど、多分これひらがな入力しても
+                   漢字で出さないといけなさそうなので多分面倒くさい
+                   とりあえず英字とひらがなのいわゆる現状の文字列の一致で見るべきかな */}
+                </InputLabel>
                 <Input
                   id="input-with-icon-adornment"
                   value={inputValue}
@@ -188,7 +191,7 @@ function App() {
                       「虫眼鏡」だったらそれを新たな候補として検索 */}
                     </IconButton>
                     <SimilaritySinger singers={singersInfoValue} />
-                    <SingerSimilarityScatterChart singers={singersInfoValue} />
+                    <SingerSimilarityScatterChart alikeSingers={singersInfoValue} />
                   </Grid>
                 </Box>
               )
@@ -196,16 +199,13 @@ function App() {
               return (
                 <Grid item xs={12} lg={12}>
                   <Box component="div" m={1}>
-                    <SuggestSinger suggestType="人気" />
-                    <SuggestSinger suggestType="お気に入り" />
-                    <SuggestSinger suggestType="急上昇" />
-                    <SuggestSinger suggestType="履歴" />
+                    <LabelBottomNavigation />
                   </Box>
                 </Grid>
               );
             }
           })()}
-          <TweetShare />
+          {/* <TweetShare /> */}
         </Grid>
       </Container>
     </div >
