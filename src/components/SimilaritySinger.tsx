@@ -66,7 +66,7 @@ const SimilaritySinger: React.FC<Props> = ({ singers }) => {
                         <Grid item xs={4}><Typography variant="h6">{singer.name}</Typography></Grid>
                         <Grid item xs={4}><Typography variant="h6">{singer.similarity}</Typography></Grid>
                         <Grid item xs={1}>
-                            <IconButton size="small" aria-label="add" style={{ backgroundColor: "#ffaacc" }} key={singer.name}>
+                            <IconButton size="small" aria-label="add" key={singer.name}>
                                 <AddIcon />
                             </IconButton>
                             {/* <Fab size="small" aria-label="add">

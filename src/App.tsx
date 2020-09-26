@@ -30,12 +30,14 @@ import MicIcon from '@material-ui/icons/Mic';
 import AppBar from '@material-ui/core/AppBar'
 import SimilaritySinger from './components/SimilaritySinger'
 import SingerSimilarityScatterChart from './components/SingerSimilarityScatterChart';
-import SingerSimilarityWordcloud from './components/SingerSimilarityWordcloud';
+import FrequencyWordcloudAndList from './components/FrequencyWordcloudAndList';
 import SingerProfile from './components/SingerProfile';
 import SingerAutoCompletion from './components/SingerAutoCompletion';
 import IconButton from '@material-ui/core/IconButton';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import axios from 'axios';
+// import NestedList from './components/NestedList'
+// import ControlledAccordion from './components/ControlledAccordion';
 // type Props = {
 //   onChange: (event: React.MouseEvent<HTMLInputElement>) => void
 // }
@@ -86,33 +88,38 @@ function App() {
   // };
 
   const handleInputValue = (value: string) => {
-    const sampleApiURL = 'https://jsondata.okiba.me/v1/json/9rmZU200926060103';
-    var autoCompletionList: any = [];
-    axios
-      .get(sampleApiURL)
-      .then((results) => {
-        for (let i = 0; i < results.data[0].num; i++) {
-          autoCompletionList.push({
-            id: results.data[2].alikeSingers[i].id,
-            name: results.data[2].alikeSingers[i].name,
-          });
-        }
-        if (singerValue !== "") {
-          setSingerValue('');
-        }
+    if (value !== "") {
 
-        if (singersInfoValue.length !== 0) {
-          setSingersInfoValue([]);
-        }
+      const sampleApiURL = 'https://jsondata.okiba.me/v1/json/9rmZU200926060103';
+      var autoCompletionList: any = [];
+      axios
+        .get(sampleApiURL)
+        .then((results) => {
+          for (let i = 0; i < results.data[0].num; i++) {
+            autoCompletionList.push({
+              id: results.data[2].alikeSingers[i].id,
+              name: results.data[2].alikeSingers[i].name,
+            });
+          }
+          if (singerValue !== "") {
+            setSingerValue('');
+          }
 
-        setAutoCompletionValue(autoCompletionList)
-        autoCompletionList = [];
+          if (singersInfoValue.length !== 0) {
+            setSingersInfoValue([]);
+          }
+
+          setAutoCompletionValue(autoCompletionList)
+          autoCompletionList = [];
 
 
-      }).catch(() => {
-        console.log("失敗した");
+        }).catch(() => {
+          console.log("失敗した");
 
-      });
+        });
+    } else {
+      setAutoCompletionValue([])
+    }
 
   }
 
@@ -148,6 +155,7 @@ function App() {
         console.log("失敗した");
 
       });
+
   }
 
 
@@ -208,27 +216,17 @@ function App() {
                     <SingerProfile name={singerValue} />
                   </Grid>
                   <Grid item xs={12} lg={12}>
-                    <Box component="div" m={1}>
-                      <Typography variant="h4">特徴的な単語</Typography>
-                      <p>結構ストップワードの選別がきつかった記憶がある</p>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} lg={12}>
-                    <Typography variant="h4">ワードクラウド</Typography>
-                    <IconButton aria-label="delete">
-                      <ReplayIcon color="secondary" />
-                    </IconButton>
-                    <SingerSimilarityWordcloud />
+                    <FrequencyWordcloudAndList singer={singerValue} />
                   </Grid>
                   <Grid item xs={12} lg={12}>
                     <Typography variant="h4">歌手別類似度</Typography>
                     <Typography variant="h6">{singerValue}と似ている歌手</Typography>
                     <IconButton>
                       <AnnouncementIcon color="secondary" />
-                      {/* あれで「+」だったら検索に追加
+                    </IconButton>
+                    {/* あれで「+」だったら検索に追加
                       「-」だったら似てない方に追加　
                       「虫眼鏡」だったらそれを新たな候補として検索 */}
-                    </IconButton>
                     <SimilaritySinger singers={singersInfoValue} />
                     <SingerSimilarityScatterChart alikeSingers={singersInfoValue} />
                   </Grid>
