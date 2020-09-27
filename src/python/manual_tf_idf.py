@@ -219,27 +219,29 @@ def make_all_lwf_index():
 # all_lwf()
 
 
-singer = "GREEEEN"
-lwf = get_lwf_file(singer, -1)
-# print("処理前")
-# for i in lwf:
-#     print(str(i[0])+":"+str(i[1]))
+if __name__ == '__main__':
+    singer = "GREEEEN"
+    lwf = get_lwf_file(singer, -1)
+    # print("処理前")
+    # for i in lwf:
+    #     print(str(i[0])+":"+str(i[1]))
 
-all_lwf_index = make_all_lwf_index()
-all_lwf_content = read_all_lwf()
-asong = 250000
-osong = checkFileNum("C:/Users/aifor/Lyric/"+singer)
-# print(all_lwf_index)
-# print(all_lwf_content)
-for item in lwf:
-    index_num = all_lwf_index.index(item[1])
-    songs_num = int(all_lwf_content[index_num][1])
-    times_num = int(all_lwf_content[index_num][2])
-    item[0] = float(float(item[0]) / math.sqrt(songs_num * times_num / asong))
+    all_lwf_index = make_all_lwf_index()
+    all_lwf_content = read_all_lwf()
+    asong = 250000
+    osong = checkFileNum("C:/Users/aifor/Lyric/"+singer)
+    # print(all_lwf_index)
+    # print(all_lwf_content)
+    for item in lwf:
+        index_num = all_lwf_index.index(item[1])
+        songs_num = int(all_lwf_content[index_num][1])
+        times_num = int(all_lwf_content[index_num][2])
+        item[0] = float(float(item[0]) /
+                        math.sqrt(songs_num * times_num / asong))
 
-slwf = sorted(lwf, reverse=True)
-print("処理後")
+    slwf = sorted(lwf, reverse=True)
+    print("処理後")
 
-for i in slwf:
-    if (int(i[4])/osong) >= 0.05:
-        print(str(i[0])+":"+str(i[1]))
+    for i in slwf:
+        if (int(i[4])/osong) >= 0.05:
+            print(str(i[0])+":"+str(i[1]))

@@ -4,10 +4,6 @@ import os
 import os.path
 import numpy as np
 import re
-# from wordcloud import WordCloud
-# from matplotlib import pyplot as plt
-# from sklearn.decomposition import PCA
-# import pandas as pd
 
 tagger = MeCab.Tagger()
 tagger.parse("")
